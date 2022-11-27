@@ -3,15 +3,19 @@
 # b) Hány olyan szám szerepel a fájlban, amelyet 612-vel osztva a hányados nem egész szám, de véges
 # tizedestört az eredmény?
 
-from decimal import Decimal
-import math
+# adatokban van az osszes szam intigerkent
+adatok = []
+with open("szamok2.txt", "r", encoding="UTF-8") as bemenet:
+  for adat in bemenet.readlines():
+    adatok.append(int(adat))
 
-numbers = []
-file = open("szamok2.txt", "r")
-for line in file.readlines():
-    numbers.append((int(line)))
-file.close()
+from decimal import *
 
-for number in numbers:
-    if number % 612 < 1:
-        print(number)
+getcontext().prec = 200
+
+veges_tortek_szama = 0
+for szam in adatok:
+    if len(str(Decimal(szam) / 612)) < 200:
+        veges_tortek_szama += 1
+
+print(veges_tortek_szama)
